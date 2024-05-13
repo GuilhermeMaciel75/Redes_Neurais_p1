@@ -68,7 +68,7 @@ def load_data_shared(filename="../data/mnist.pkl.gz"):
         u.encoding = "latin1"
         training_data, validation_data, test_data = u.load()
     def shared(data):
-        """Place the data into shared variables.  This allows Theano to copy
+        """Place the data into shared variables.  This allows Aesara to copy
         the data to the GPU, if one is available.
 
         """
@@ -181,6 +181,22 @@ class Network(object):
         print("Best validation accuracy of {0:.2%} obtained at iteration {1}".format(
             best_validation_accuracy, best_iteration))
         print("Corresponding test accuracy of {0:.2%}".format(test_accuracy))
+
+    def predict(self, data):
+        """Predict labels for input data."""
+
+        if isinstance(data, tuple):
+            x_data, _ = data
+        else:
+            x_data = data
+
+        num_batches = int(np.ceil(len(x_data) / self.mini_batch_size))
+
+        predictions = [self.test_mb_predictions(j)
+                       for j in range(num_batches)]
+        predictions = np.concatenate(predictions)
+
+        return predictions
 
 #### Define layer types
 
