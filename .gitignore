@@ -8,3 +8,6 @@ loc.py
 src/ec2
 
 src/test_model.plk
+src/imagens_teste/
+src/modelos_treinados/
+src/data/
