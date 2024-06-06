@@ -10,3 +10,5 @@ src/ec2
 src/test_model.plk
 src/imagens_teste/
 src/data/
+
+.venv/
